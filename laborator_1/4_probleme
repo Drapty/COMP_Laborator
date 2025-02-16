@@ -1,0 +1,466 @@
+#include <iostream>
+#include <string>
+#include <variant>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+
+//problema 1
+string concatenate(string s1,string s2)
+{
+    
+    string temp;
+
+    temp = s1 + s2;
+
+    return temp;
+}
+
+string inverse(string s1)
+{
+    string temp;
+
+    for (int i = s1.length()-1;i>=0;--i)
+    {
+        temp = temp + s1[i];
+
+    }
+
+    return temp;
+}
+
+string substitute(string s1,char a,char b)
+{
+    for (int i = 0;i < s1.length(); i++)
+    {
+        if (s1[i] == a)
+        {
+            s1[i] = b;
+        }
+    }
+
+    return s1;
+
+}
+
+int get_length(string s1)
+{
+    return s1.length();
+}
+
+
+
+
+
+
+//problema 2
+
+
+
+
+string strcat(vector<int> s1)
+{
+    string temp="";
+    int size = s1.size();
+    for (int i = 0;i < size;i++)
+    {
+        temp += to_string(s1[i]);
+    }
+
+    return temp;
+}
+
+class base
+{
+public:
+    virtual string s1concas2()  = 0;
+};
+
+class intdata:public base
+{
+private:
+   vector<int> value;
+    vector<string> value2;
+public:
+
+    intdata(vector<int> value,vector<string> value2) :value(value),value2(value2)
+    {
+
+    }
+
+    string s1concas2()
+    {
+        vector<string> str1;
+
+        string temp;
+        temp=strcat(value);
+        
+        for (int num:value)
+        {
+            str1.push_back(to_string(num));
+        }
+
+        value2.insert(value2.end(),str1.begin(),str1.end());
+        string st;
+
+        for (const string& s : value2)
+        {
+            st += s;
+        }
+        return st;
+    }
+
+    string repeat(int n)
+    {
+        vector<string> str1;
+
+        string temp;
+        temp = strcat(value);
+
+        for (int num : value)
+        {
+            str1.push_back(to_string(num));
+        }
+
+        vector<string> repeat;
+        for (int i = 0;i < n;i++)
+        {
+            repeat.insert(repeat.end(), str1.begin(), str1.end());
+        }
+        string st;
+
+        for (const string& s : repeat)
+        {
+            st += s;
+        }
+
+        return st;
+    }
+
+    string reverse()
+    {
+        
+        vector<string> str1;
+
+        string temp;
+        temp = strcat(value);
+
+        for (int num : value)
+        {
+            str1.push_back(to_string(num));
+        }
+
+        
+        for (int i = str1.size() - 1;i >= 0;--i)
+        {
+            temp = temp + str1.at(i);
+        }
+
+        return temp;
+
+    }
+
+    string extract(int i,int j)
+    {
+        string temp;
+
+        vector<string> str1;
+
+       
+        temp = strcat(value);
+
+        for (int num : value)
+        {
+            str1.push_back(to_string(num));
+        }
+
+        for (int ii = i;ii < j;i++)
+        {
+            temp += str1.at(ii);
+        }
+
+        return temp;
+    }
+
+    string replace(vector<string> sub,vector<string> new_sub)
+    {
+        string temp;
+
+        vector<string> str1;
+
+
+        temp = strcat(value);
+
+        for (int num : value)
+        {
+            str1.push_back(to_string(num));
+        }
+
+
+        for (int i=0;i<str1.size();i++)
+        {
+            if (str1.at(i) == sub.at(0))
+            {
+                for (int j = i;new_sub.size();j++)
+                {
+                    str1.insert(str1.end(), j, new_sub.at(j));
+                }
+            }
+        }
+
+        return temp;
+    }
+
+};
+
+class stringdata :public base
+{
+
+private:
+    vector<string> value;
+    vector<string> value2;
+public:
+
+    stringdata(vector<string> value,vector<string> value2 ) :value(value),value2(value2)
+    {
+
+    }
+
+    string s1concas2()
+    {
+        value2.insert(value2.end(), value.begin(), value.end());
+        string st;
+        for (const string& s : value2)
+        {
+            st += s;
+        }
+        return st;
+    }
+
+    string repeat(int n)
+    {
+        vector<string> temp = value2;
+        for (int i = 0;i < n;i++)
+        {
+            temp.insert(temp.end(), value2.begin(), value2.end());
+        }
+        string st;
+        for (const string& s : temp)
+        {
+            st += s;
+        }
+        return st;
+    }
+
+    string reverse()
+    {
+        string temp;
+
+        for (int i = value2.size() - 1;i >= 0;--i)
+        {
+            temp = temp + value2.at(i);
+        }
+
+        return temp;
+    }
+
+    string extract(int i, int j)
+    {
+        string temp;
+
+        for (int ii = i;ii < j;ii++)
+        {
+            temp += value2.at(ii);
+        }
+
+        return temp;
+    }
+
+    string replace(vector<string> sub, vector<string> new_sub)
+    {
+        string temp;
+
+        vector<string> str1;
+
+
+        for (int i = 0;i < value2.size();++i)
+        {
+            for (int j = 0;j < sub.size();j++)
+            {
+                if (value2.at(i) == sub.at(j))
+                {
+                    value2.at(i) = new_sub.at(0);
+
+                }
+            }
+        }
+
+        string st;
+        for (const string& s : value2)
+        {
+            st += s;
+        }
+        return st;
+       
+    }
+};
+
+// problema 3
+
+ 
+vector<string> palindroms( string temp) {
+    vector<string> palindromes;
+
+    
+    for (char a : temp) {
+        for (char b : temp) {
+            for (char c : temp) {
+               
+                string palindrome = string(1, a) + string(1, b) + string(1, c) + string(1, b) + string(1, a);
+                palindromes.push_back(palindrome);
+            }
+        }
+    }
+
+    return palindromes;
+}
+
+//problema 4
+
+void alternatechars(std::vector<std::string>& sequence, std::string current, int maxLength) {
+   if (current.length() > maxLength) return ;
+
+   if (current.empty())
+   {
+       sequence.push_back(current);
+   }
+   
+    
+
+   
+   alternatechars(sequence, current + "a", maxLength);
+   alternatechars(sequence, current + "b", maxLength);
+
+
+    
+}
+
+int main()
+{
+
+    // problema 1
+    /*
+    string A = { 'a','b','c'};
+
+    string B = {'a','b','c'};
+
+    string C = { 'a','b','c' };
+
+    char a = 'a';
+
+    char b = 'b';
+
+    cout<< "concatenare A si B:"<<concatenate(A, B);
+
+    cout << "\n";
+
+    cout <<"inversare A :<< inverse(A)<<"\n";
+
+    cout << "substitutie A unde a cu b:"<<substitute(A, a, b)<<"\n";
+
+    cout << "lungime A:"<<get_length(A)<<"\n";
+
+    */
+    //problema 2
+
+    /*
+    vector<int> sigma1 = { 0,1,2,3,4,5,6,7,8,9 };
+
+    vector<string>  sigma2 = { "a","b","c","d","e","f","g","h","i","j" };
+
+    vector<string> sigma3 = { "x1","y1","x2","y2","x3","y3","x4","y4","x5","y5" };
+
+    intdata intstr(sigma1, sigma2);
+
+    stringdata stringstr(sigma2, sigma3);
+    /*
+    cout << "concatenate string with int:"<<intstr.s1concas2() << endl;
+        
+    cout << "concatenate string with string: "<<stringstr.s1concas2() << endl;
+
+    int count_rep;
+    cout << endl<<"read count repeatition:";
+    cin >> count_rep;
+    cout << "string repeated by "<<count_rep<<" times:" << endl << stringstr.repeat(count_rep) << endl;
+
+    //cout << "reverse:"<<stringstr.reverse() << endl;
+
+    int left;
+    int right;
+    cout << "begin:";
+    cin >> left;
+    cout << endl << "end:";
+    cin >> right;
+    cout << endl;
+    cout << "extract :"<<stringstr.extract(left, right) << endl;
+    
+    vector<string> replaced;
+    
+    int length;
+    cout << "length:";
+    cin >> length;
+    
+    string temp_rep;
+    for (int i=0;i < length;i++)
+    {
+       
+        cout << "value to replace:";
+        cin >> temp_rep;
+        replaced.push_back(temp_rep);
+    }
+    vector<string> replace; 
+    
+        
+        cout << "value replaced with:";
+        cin >> temp_rep;
+        replace.push_back(temp_rep);
+    
+
+
+    cout << "replaced:" << stringstr.replace(replaced, replace) << endl;
+    
+    */
+    //problema 3
+
+    /*
+    string lista = "012";
+
+    
+    vector<string> palindromes = palindroms(lista);
+
+    cout<<"afisare palindrome posibile:"
+    for (auto p : palindromes) {
+        cout << p << endl;
+    }
+
+    return 0;
+    */
+
+    //problema 4
+
+    /*
+    vector<string> temp;
+    string empty;
+    
+    int max = 4;
+    alternatechars(temp,empty, max);
+
+    for (auto s : a)
+    {
+        cout << s << endl;
+    }
+     */
+
+}
