@@ -242,7 +242,7 @@ public:
     string repeat(int n)
     {
         vector<string> temp = value2;
-        for (int i = 0;i < n;i++)
+        for (int i = 0;i < n-1;i++)
         {
             temp.insert(temp.end(), value2.begin(), value2.end());
         }
@@ -399,7 +399,7 @@ int main()
 
     int left;
     int right;
-    cout << "begin:";
+    cout <<endl<< "begin extraction at::";
     cin >> left;
     cout << endl << "end:";
     cin >> right;
@@ -450,13 +450,22 @@ int main()
 
     //problema 4
 
+    bool compare(const string a, const string b)
+{
+    return (a.size() < b.size());
+}
+
+
     /*
     vector<string> temp;
     string empty;
     
-    int max = 4;
+    int max;
+    cout << "citeste lungime:";
+    cin >> max;
+    
     alternatechars(temp,empty, max);
-
+    sort(temp.begin(), temp.end(), compare);
     for (auto s : a)
     {
         cout << s << endl;
