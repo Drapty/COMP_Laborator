@@ -4,6 +4,8 @@
 #include <fstream>
 #include<map>
 #include <string>
+#include <algorithm>
+#include <map>
 using namespace std;
 using namespace std;
 
@@ -191,6 +193,7 @@ void second()
 
 	// problema 3
 
+/*  ignore VV
 	vector<string> third()
 	{
 
@@ -226,34 +229,9 @@ void second()
 					}
 
 					duble.push_back(duble3);
-					/*for (int i = 0;i < 7;i + 2)
-					{
-						if (duble3.at(i) == duble3.at(2))
-						{
-							if (duble.at(i) == duble.at(4))
-							{
-								if (duble.at(i) == duble.at(6))
-								{
-
-								}
-							}
 
 
-						}
-					}*/
-
-					/*if (duble3[0] == duble3[0 + 1] || )
-					{
-						if (duble3[1] == duble3[1 + 1])
-						{
-							if (duble3[2] == duble3[2 + 1])
-							{
-								duble.push_back(duble3);
-
-							}
-
-						}
-					}*/
+					
 				}
 
 
@@ -265,6 +243,78 @@ void second()
 		return duble;
 	}
 
+	
+	*/ ignore ^^
+	   // ignore this fucntion VV
+		void print_permutations(const char* temp)
+		{
+			
+			std::string s(temp);
+			
+			std::sort(s.begin(), s.end());
+			do {
+				std::cout << s << '\n';
+			} while (std::next_permutation(s.begin(), s.end()));
+		}
+
+		// original gene pool
+		
+
+		bool prob3(string temp)
+		{
+			if (temp.size() < 3 || temp.size() > 6)
+			{
+				return false;
+			}
+
+
+			/* ignore
+			std::sort(temp.begin(), temp.end());
+			int counter=0;
+			for (int i = 0;i < temp.size();i++)
+			{
+				for (int j = 0;j < temp.size();j++)
+				{
+					if (temp.at(i) == temp.at(j))
+					{
+						counter++;
+					}
+
+					
+				}
+				
+				
+			}
+			if (counter == 3)
+			{
+				return true;
+			}
+			*/
+
+
+
+			map<char, int> aparitii;
+			for (char ch : temp) {
+				aparitii[ch]++;
+			}
+
+			
+			int countThree = 0;
+			int countMoreThanTwo = 0;
+
+			for (const auto& entry : aparitii) {
+				if (entry.second == 3) {
+					countThree++;
+				}
+				if (entry.second > 3) {
+					countMoreThanTwo++;
+				}
+			}
+
+			
+			return (countThree == 1 && countMoreThanTwo == 0);
+		}
+	
 
 	// problema 4
 
@@ -351,14 +401,17 @@ void second()
 	}
 
 
+	
+
+
 int main()
 {
 	// problema 1
 
-//	first(gs);
+	//first(gs);
 
 
-
+// ignore VV
 	//while ()
 
 	//{
@@ -407,18 +460,18 @@ int main()
 	//		break;
 	//	}
 	//}
-
+// ignore ^^
 
 	//problema 2
 
-	/*
-	second();
+	
+	//second();
 
-	*/
+	
 
 	// problema 3
 
-	/*
+	/* ignore
 	vector<string> temp = third();
 
 	for (auto i : temp)
@@ -427,10 +480,42 @@ int main()
 	}
 	*/
 
-	//problema 4
-	ofstream file("Text.txt");  // write
+	//problema 3 rezolvare
 
-ofstream file("Text.txt");
+	/*
+	string text="";
+	cout << "citeste litere:";
+	cin >> text;
+	if (prob3(text)==true)
+	{
+		cout << "adv";
+	}
+	else
+	{
+		cout << "Fasle";
+	};
+
+	*/
+
+	//trashhold
+	/*const char* pool_a = "aabbcc";
+	const char* pool_b = "abbbcd";
+	const char* pool_c = "abcccd";
+	const char* pool_d = "abcddd";
+	print_permutations(pool_a);
+	cout << endl;
+	print_permutations(pool_b);
+	cout << endl;
+	print_permutations(pool_c);
+	cout << endl;
+	print_permutations(pool_d);
+	cout << endl;*/
+
+	//problema 4
+	
+
+	/*
+	ofstream file("Text.txt");
 
 	string temp;
 	cin >> temp;
@@ -453,4 +538,5 @@ ofstream file("Text.txt");
 	forth(file_check);
 
 	file_check.close();
+	*/
 }
