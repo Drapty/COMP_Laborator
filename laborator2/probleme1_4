@@ -280,13 +280,17 @@ void second()
 		// "cantitate:"
 
 		string text;
-		string name;
+		string name="nume:";
+		string prenume = "prenume:";
+		string pret = "pret:";
+		string tva = "tva:";
+		string cantitate = "cantitate:";
 		int marks=0;
 
-		while (file.eof())
+		while (!file.eof())
 		{
 			getline(file, text);
-			if (text.substr() == name)
+			if (text.substr(0,name.size()) == name)
 			{
 				marks++;
 				}
@@ -294,8 +298,8 @@ void second()
 			{
 				cout << "name incorect"<<endl;
 			}
-
-			if (text.substr() == name)
+			getline(file, text);
+			if (text.substr(0,prenume.size()) == prenume)
 			{
 				marks++;
 				
@@ -304,8 +308,8 @@ void second()
 			{
 				cout << "prenume incorect"<<endl;
 			}
-
-			if (text.substr() == name)
+			getline(file, text);
+			if (text.substr(0,pret.size()) == pret)
 			{
 				marks++;
 				
@@ -314,8 +318,8 @@ void second()
 			{
 				cout << "pret incorect"<<endl;
 			}
-
-			if (text.substr() == name)
+			getline(file, text);
+			if (text.substr(0,tva.size()) == tva)
 			{
 				marks++;
 			}
@@ -323,8 +327,8 @@ void second()
 			{
 				cout << "tva incorect" << endl;
 			}
-
-			if (text.substr() == name)
+			getline(file, text);
+			if (text.substr(0,cantitate.size()) == cantitate)
 			{
 				marks++;
 			}
@@ -333,19 +337,18 @@ void second()
 				cout << "cantitate incorect" << endl;
 			}
 
-			if (marks == 4)
+			if (marks == 5)
 			{
 				cout << "format corect" << endl;
 			}
 
-
+			getline(file, text);
 
 			
 		}
 
 
 	}
-
 
 
 int main()
@@ -427,14 +430,27 @@ int main()
 	//problema 4
 	ofstream file("Text.txt");  // write
 
+ofstream file("Text.txt");
 
+	string temp;
+	cin >> temp;
+	file << temp << endl;
 
+	cin >> temp;
+	file << temp << endl;
 
+	cin >> temp;
+	file << temp << endl;
 
+	cin >> temp;
+	file << temp << endl;
 
-
+	cin >> temp;
+	file << temp << endl;
 
 
 	ifstream file_check("Text.txt");
 	forth(file_check);
+
+	file_check.close();
 }
