@@ -1,0 +1,440 @@
+
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include<map>
+#include <string>
+using namespace std;
+using namespace std;
+
+
+enum class Gs
+{
+	q0,
+	q1,
+	q2,
+	q3,
+	q4
+
+
+};
+
+int g0[2] = { 0,1 };
+int g1[2] = { 0,1 };
+int g3[2] = { 0,1 };
+int g2[2] = { 0,1 };
+
+
+int gs[4] = { 1,0,0,0};
+
+
+void first(int gs[4])
+{
+	bool bol=true;
+	while (bol == true)
+	{
+		if (gs[0] == 1)
+		{
+			int temp;
+			cout << "citeste stare q0:";
+			cin >> temp;
+			if (temp == 0)
+			{
+				gs[1] = 1;
+				gs[0] = 0;
+			}
+
+			if (temp == 1)
+			{
+				gs[0] = 0;
+				gs[2] = 1;
+			}
+		}
+
+		if (gs[1] == 1)
+		{
+
+			cout << "citeste stare q1:";
+			int temp;
+			cin >> temp;
+			if (temp == 0)
+			{
+				gs[1] = 0;
+				gs[3] = 1;
+			}
+
+			if (temp == 1)
+			{
+				gs[1] = 0;
+				gs[0] = 1;
+			}
+		}
+
+		if (gs[2] == 1)
+		{
+			int temp;
+			cout << "citeste stare q2:";
+
+			cin >> temp;
+			if (temp == 0)
+			{
+				gs[2] = 0;
+				gs[1] = 1;
+			}
+
+			if (temp == 1)
+			{
+				gs[2] = 0;
+				gs[3] = 1;
+			}
+		}
+
+		if (gs[3] == 1)
+		{
+			int temp;
+			cout << "in stare q3 ";
+			
+				gs[3] = 0;
+				bol=false;
+				break;
+			
+		}
+	}
+}
+
+
+void second()
+{
+	int gs[4] = { 1,0,0,0 };
+	char temp;
+
+	bool time = true;
+	string cat = "cat";
+	while (time)
+	{
+
+
+		if (gs[0] == 1)
+		{
+			cout << "in stare q0" << endl;
+			cout << "citeste stare q0:";
+			cin >> temp;
+			if (temp == 'c')
+			{
+
+				gs[0] = 0;
+				gs[1] = 1;
+			}
+
+		}
+
+		if (gs[1] == 1)  // stare q1 ativa pe 1
+		{
+			cout << "in stare q1" << endl;
+			cout << "citeste stare q1:" << endl;
+			cin >> temp;
+			if (temp == 'a')
+			{
+				gs[1] = 0;
+				gs[2] = 1;
+
+			}
+
+			if (temp != 'c' && temp != 'a')
+			{
+				gs[1] = 0;
+				gs[0] = 1;
+			}
+
+		}
+
+		if (gs[2] == 1)  // q2 stare activa
+		{
+			cout << "in stare q2" << endl;
+			cout << "citeste stare q2:" << endl;
+			cin >> temp;
+			if (temp == 't')
+			{
+				gs[2] = 0;
+				gs[3] = 1;
+
+			}
+
+			if (temp == 'c')
+			{
+				gs[2] = 0;
+				gs[1] = 1;
+			}
+
+			if (temp != 'c' && temp != 'a')
+			{
+				gs[0] = 1;
+				gs[2] = 0;
+			}
+		}
+
+		if (gs[3] == 1)   // q3 stare activa
+		{
+			char temp_1;
+
+
+			cin >> temp_1;
+			cat.append(string(1, temp_1));
+			cout << cat;
+			gs[0] = 0;
+		}
+
+	};
+}
+
+
+
+	// problema 3
+
+	vector<string> third()
+	{
+
+		string temp = { 'a','b','c','d' };
+		vector<string> duble;
+		int counter = 0;
+		for (char a : temp)
+
+		{
+			for (char b : temp)
+			{
+
+				for (char c : temp)
+				{
+					string duble3 = string(1, a) + string(1, b) + string(1, c);
+
+
+					for (int i = 0;i < 5;i++)
+					{
+						for (int j = 0;j <5;j++)
+						{
+							if (duble3.at(i) == duble3.at(j))
+							{
+								counter++;
+							}
+
+							if (counter == 3)
+							{
+								counter = 0;
+								duble.push_back(duble3);
+							}
+						}
+					}
+
+					duble.push_back(duble3);
+					/*for (int i = 0;i < 7;i + 2)
+					{
+						if (duble3.at(i) == duble3.at(2))
+						{
+							if (duble.at(i) == duble.at(4))
+							{
+								if (duble.at(i) == duble.at(6))
+								{
+
+								}
+							}
+
+
+						}
+					}*/
+
+					/*if (duble3[0] == duble3[0 + 1] || )
+					{
+						if (duble3[1] == duble3[1 + 1])
+						{
+							if (duble3[2] == duble3[2 + 1])
+							{
+								duble.push_back(duble3);
+
+							}
+
+						}
+					}*/
+				}
+
+
+
+			}
+		}
+		
+
+		return duble;
+	}
+
+
+	// problema 4
+
+	void forth(ifstream& file)
+	{
+		
+
+		//  "nume :"
+		//  " prenume:"
+		//  "nume produs:" 
+		// " pret:"
+		// " tva:"
+		// "cantitate:"
+
+		string text;
+		string name;
+		int marks=0;
+
+		while (file.eof())
+		{
+			getline(file, text);
+			if (text.substr() == name)
+			{
+				marks++;
+				}
+			else
+			{
+				cout << "name incorect"<<endl;
+			}
+
+			if (text.substr() == name)
+			{
+				marks++;
+				
+			}
+			else
+			{
+				cout << "prenume incorect"<<endl;
+			}
+
+			if (text.substr() == name)
+			{
+				marks++;
+				
+			}
+			else
+			{
+				cout << "pret incorect"<<endl;
+			}
+
+			if (text.substr() == name)
+			{
+				marks++;
+			}
+			else
+			{
+				cout << "tva incorect" << endl;
+			}
+
+			if (text.substr() == name)
+			{
+				marks++;
+			}
+			else
+			{
+				cout << "cantitate incorect" << endl;
+			}
+
+			if (marks == 4)
+			{
+				cout << "format corect" << endl;
+			}
+
+
+
+			
+		}
+
+
+	}
+
+
+
+int main()
+{
+	// problema 1
+
+//	first(gs);
+
+
+
+	//while ()
+
+	//{
+	//	switch (state)   // q0
+	//	{
+	//	case 0:    // goes to q1
+	//	{
+	//		cin >> state;
+	//		switch (state)   // q1
+	//		{
+	//		case 0:    // goes to q3
+	//		{
+
+	//		}
+	//		case 1:    // goes to q0
+	//		{
+	//			break;
+	//		}
+	//		}
+	//		break;
+	//	}
+	//	case 1:  // goes to q2
+	//	{
+
+	//		cin >> state;
+	//		switch (state)    //q2
+	//		{
+	//		case 0:   // goes q1
+	//		{
+	//			cout << "state at q1";
+	//		}
+	//		case 1:    // goes q3
+	//		{
+	//			cout << "stops at q3";
+
+	//		}
+	//		}
+	//	}
+	//	
+	//	break;
+	//	}
+	//
+
+	//	case 2:
+	//	{
+	//		break;
+	//	}
+	//}
+
+
+	//problema 2
+
+	/*
+	second();
+
+	*/
+
+	// problema 3
+
+	/*
+	vector<string> temp = third();
+
+	for (auto i : temp)
+	{
+		cout << i << endl;
+	}
+	*/
+
+	//problema 4
+	ofstream file("Text.txt");  // write
+
+
+
+
+
+
+
+
+
+	ifstream file_check("Text.txt");
+	forth(file_check);
+}
