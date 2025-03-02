@@ -1,0 +1,263 @@
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+
+// problema 1
+void aparat()
+{
+
+	while (true)
+	{
+
+		string temp;
+		cout << "Stare q0";
+		cout << endl << "selecteaza C pentru cafea, T pentru ceai, A pentru capucino, H pentru ciocolata calda:";
+		cin >> temp;
+
+		if (temp == "C")
+		{
+			cout << "in stare q1";
+			cout << endl << "scrie ok pentru a confirma selectia cafelei:";
+			cin >> temp;
+			if (temp == "OK")
+			{
+				cout << "cafea primita" << endl;
+				temp = "";
+
+			}
+		}
+
+		if (temp == "T")
+		{
+			cout << "in stare q1";
+			cout << endl << "scrie ok pentru a confirma selectia ceaiului:";
+			cin >> temp;
+			if (temp == "OK")
+			{
+				cout << "ceai primit" << endl;
+				temp = "";
+
+			}
+		}
+
+		if (temp == "A")
+		{
+			cout << "in stare q1";
+			cout << endl << "scrie ok pentru a confirma selectia capucino-ului:";
+			cin >> temp;
+			if (temp == "OK")
+			{
+				cout << "capucino primit" << endl;
+				temp = "";
+
+			}
+		}
+
+		if (temp == "H")
+		{
+			cout << "in stare q1";
+			cout << endl << "scrie ok pentru a confirma selectia ciocolatei calde:";
+			cin >> temp;
+			if (temp == "OK")
+			{
+				cout << "ciocolata calda primita" << endl;
+				temp = "";
+
+			}
+		}
+
+
+	}
+
+}
+
+	// problema 2
+
+#include <iostream>
+#include <vector>
+#include <set>
+
+
+enum class State {
+	EMPTY,
+	ONE_CAR,
+	FULL,
+	CAR_ENTERED,
+	CAR_EXITED
+};
+
+class Parcare {
+private:
+	int maxSpots; 
+	int currentCars; 
+	State currentState;
+
+public:
+	Parcare(int maxSpots) : maxSpots(maxSpots), currentCars(0), currentState(State::EMPTY) {}
+
+	
+	void carEnter() {
+		switch (currentState) {
+		case State::EMPTY:
+		case State::ONE_CAR:
+			currentCars++;
+			if (currentCars == maxSpots) {
+				currentState = State::FULL;
+				cout << "Parking lot is full!" << std::endl;
+			}
+			else {
+				currentState = State::CAR_ENTERED;
+				cout << "Car entered the parking lot." << std::endl;
+			}
+			break;
+		default:
+		cout << "Cannot enter: " << getStateString() << std::endl;
+		}
+	}
+
+	
+	void carExit() {
+		switch (currentState) {
+		case State::FULL:
+		case State::CAR_ENTERED:
+			currentCars--;
+			if (currentCars == 0) {
+				currentState = State::EMPTY;
+				cout << "Parking lot is now empty." << std::endl;
+			}
+			else {
+				currentState = State::CAR_EXITED;
+				cout << "Car exited the parking lot." << std::endl;
+			}
+			break;
+		default:
+		cout << "Cannot exit: " << getStateString() << std::endl;
+		}
+	}
+
+	
+	std::string getStateString() {
+		switch (currentState) {
+		case State::EMPTY: return "EMPTY";
+		case State::ONE_CAR: return "ONE_CAR";
+		case State::FULL: return "FULL";
+		case State::CAR_ENTERED: return "CAR_ENTERED";
+		case State::CAR_EXITED: return "CAR_EXITED";
+		default: return "UNKNOWN";
+		}
+	}
+
+	
+	void printStatus() {
+		cout << "Current state: " << getStateString() << ", Cars in parking: " << currentCars << std::endl;
+	}
+};
+
+	// problema 3
+
+enum class Stare {
+	q0,
+	q1, 
+	q2  
+};
+
+class NFA {
+private:
+	
+	set<Stare> transitions[3][2]; 
+
+public:
+	
+	NFA() {
+		
+		transitions[static_cast<int>(Stare::q0)][0].insert(Stare::q0); 
+		transitions[static_cast<int>(Stare::q0)][0].insert(Stare::q1); 
+		transitions[static_cast<int>(Stare::q0)][1].insert(Stare::q0); 
+
+		
+		transitions[static_cast<int>(Stare::q1)][0].insert(Stare::q1); 
+		transitions[static_cast<int>(Stare::q1)][1].insert(Stare::q2);
+
+		
+		transitions[static_cast<int>(Stare::q2)][0].insert(Stare::q2); 
+		transitions[static_cast<int>(Stare::q2)][1].insert(Stare::q2); 
+	}
+
+	
+	bool simulate(const std::string& input) {
+		std::set<Stare> currentStates;
+		currentStates.insert(Stare::q0); 
+
+		
+		for (char c : input) {
+			std::set<Stare> nextStates;
+
+			
+			int symbol = (c == 'a') ? 0 : 1;
+
+			
+			for (Stare state : currentStates) {
+				nextStates.insert(transitions[static_cast<int>(state)][symbol].begin(),
+					transitions[static_cast<int>(state)][symbol].end());
+			}
+
+			
+			currentStates = nextStates;
+		}
+
+		
+		return currentStates.count(Stare::q2) > 0;
+	}
+};
+
+
+
+int main()
+{
+
+	//problema 1
+// aparat();
+
+
+	//problema 2
+	
+	/*
+	int Locuriparcare = 3; 
+	Parcare parking(Locuriparcare);
+
+	
+	parking.printStatus();
+	parking.carEnter();
+	parking.printStatus();
+	parking.carEnter();
+	parking.printStatus();
+	parking.carExit();
+	parking.printStatus();
+	parking.carExit();
+	parking.printStatus();
+	parking.carEnter();
+	parking.printStatus();
+	parking.carEnter();
+	parking.printStatus();
+	*/
+
+	// problema 3
+
+	NFA nfa;
+
+	// Test the NFA with different strings
+	std::vector<std::string> testStrings = { "ab", "aab", "abb", "bab", "aa", "ba", "bbaa" };
+
+	for (const std::string& test : testStrings) {
+		std::cout << "Input: " << test << " -> "
+			<< (nfa.simulate(test) ? "Accepted" : "Rejected") << std::endl;
+	}
+
+	return 0;
+	
+
+}
