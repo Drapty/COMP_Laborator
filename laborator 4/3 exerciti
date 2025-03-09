@@ -1,0 +1,139 @@
+#include <iostream>
+#include <string>
+#include <set>
+#include <vector>
+#include <map>
+using namespace std;
+
+
+// moore problem 
+enum State
+{
+    S1,
+    S2,
+};
+class MooreMachine {
+public:
+    MooreMachine() {
+        currentState = S1;  
+    }
+
+   
+    string processString(const string& input) {
+        string output = "";
+        for (char c : input) {
+           output+= transition(c);  
+        }
+        
+        return output;
+    }
+
+private:
+    State currentState;
+
+    
+    string transition(char inputChar) {
+        if (inputChar == 'a') {
+           
+            if (currentState == S1) {
+                currentState = S1;  
+                return "O1";
+            }
+            else {
+                currentState = S1; 
+                return "O1";
+            }
+        }
+
+        if (inputChar == 'b')
+        {
+            if (currentState == S2) {
+                currentState = S2;  
+                return "O2";
+            }
+            else {
+                currentState = S2;
+                return "O2";
+            }
+        }
+        
+    }
+
+    
+   
+};
+
+/// <summary>
+/// ////////////
+/// 
+/// </summary>
+/// <returns></returns>
+/// 
+/// 
+/// 
+/// 
+
+struct MealyMachine {
+    
+    map<string, map<char, pair<string, string>>> transitions;
+
+   
+    string currentState;
+
+    
+    MealyMachine(string startState) {
+        currentState = startState;
+    }
+
+    
+    void Rezultat(char input) {
+        if (transitions[currentState].find(input) != transitions[currentState].end()) {
+          
+            pair<string, string> nextTransition = transitions[currentState][input];
+            currentState = nextTransition.first;
+            cout << "State: " << currentState << ", Output: " << nextTransition.second << endl;
+        }
+        
+    }
+
+   
+    void addTransition(string state, char input, string finalState, string output) {
+        transitions[state][input] = make_pair(finalState, output);
+    }
+};
+
+
+int main() {
+
+    // moore problem
+    /*
+    MooreMachine mooreMachine;
+    string input;
+
+    cout << "Enter a string: ";
+    cin >> input;
+
+    string result = mooreMachine.processString(input);
+    cout << result << endl;
+    */
+
+    //////////////////////////
+
+    MealyMachine mealy("Q1");
+
+    
+    mealy.addTransition("Q1", 'X', "Q2", "O1");
+    mealy.addTransition("Q1", 'Y', "Q1", "Q1");
+    mealy.addTransition("Q2", 'X', "Q1", "O2");
+    mealy.addTransition("Q2", 'Y', "Q2", "O2");
+
+   
+
+    string inputs = "XYX";  
+    for (char input : inputs) {
+        mealy.Rezultat(input);
+
+        
+    }
+    return 0;
+}
