@@ -1,0 +1,169 @@
+#include <iostream>
+#include <regex>
+#include <string>
+#include <map>
+
+using namespace std;
+
+struct MealyToMoore
+{
+    map<string, map<vector<string>, pair<string, string>>> transitions;
+
+    string currentState;
+
+
+
+
+    void addTransition(string state, vector<string> input, string nextState, string output) {
+        transitions[state][input] = make_pair(nextState, output);
+    }
+
+    void transform()
+    {
+
+        for (auto& outerPair : transitions) {
+
+
+            // Iterating over the inner map
+            for (auto& innerPair : outerPair.second) {
+
+                for (auto& innerinnerPair : innerPair.first)
+                {
+                    //  std::cout << "  " << innerPair.first[0] << " -> " << innerPair.second << std::endl;
+                    //  cout << "State:" << firstelement.first << "output:" << firstelement.second.first;
+                         // transform(innerinnerPair, innerPair.second.first, outerPair.first);
+                    if ("S0" == outerPair.first)
+                    {
+                        if (innerinnerPair == "0" && innerPair.second.second == "S0")
+                        {
+                            
+                            innerPair.first.at(1) = "S0";
+                        }
+                        if (innerinnerPair == "1" && innerPair.second.second == "S0")
+                        {
+                            innerPair.first.at(1) = "S0";
+                        }
+                        if (innerinnerPair == "0" && innerPair.second.second == "S1")
+                        {
+                            innerPair.first.at(1) = "S1";
+                        }
+                        if (innerinnerPair == "1" && innerPair.second.second == "S1")
+                        {
+                            innerPair.first.at(1) = "S1";
+                        }
+                    }
+                    else
+                    {
+                        if (innerinnerPair == "0" && innerPair.second.second == "S0")
+                        {
+                            innerPair.first.at(1)."S0";
+                        }
+                            if (innerinnerPair == "1" && innerPair.second.second == "S0")
+                            {
+                                innerPair.first.at(1) = "S0";
+                            }
+                            if (innerinnerPair == "0" && innerPair.second.second == "S1")
+                            {
+                                innerPair.first.at(1) = "S1";
+                            }
+                            if (innerinnerPair == "1" && innerPair.second.second == "S1")
+                            {
+                                innerPair.first.at(1) = "S1";
+                            }
+
+                        }
+
+                        // innerPair.first state
+                    }
+                }
+            }
+
+        }
+
+
+    void read()
+    {
+        for (auto outerPair : transitions) {
+
+
+            
+            for (auto innerPair : outerPair.second) {
+
+                
+                    cout << "State:" << outerPair.first << " input:"<< innerPair.first.at(0) <<","<< innerPair.first.at(1) << " next:" << innerPair.second.first << " output:" << innerPair.second.second << endl;
+                
+
+            }
+        }
+    }
+    };
+
+
+bool compareRegexes(const string& temp1, const string& temp2, const vector<string>& possiblevalues) {
+   
+    regex regex1(temp1);
+    regex regex2(temp2);
+
+    for (const auto& testString : possiblevalues) {
+        bool matches1 = regex_match(testString, regex1);
+        bool matches2 = regex_match(testString, regex2);
+
+        
+        if (matches1 != matches2) {
+           
+            return false;
+        }
+    }
+
+    return true;  
+}
+int main() {
+
+    
+    MealyToMoore temp;
+    vector<vector<string>> inputs = { { "0","0" },{"0","1"},{"1","0"},{"1","1"} };
+    temp.addTransition("S0", { "0", "0" }, "S0", "0");
+    temp.addTransition("S0", { "0","1" }, "S1", "1");
+    temp.addTransition("S0", { "1","0" }, "S0", "0");
+    temp.addTransition("S0", { "1","1" }, "S1", "1");
+    temp.addTransition("S1", { "0", "0" }, "S1", "1");
+    temp.addTransition("S1", { "0","1" }, "S1", "1");
+    temp.addTransition("S1", { "1","0" }, "S0", "0");
+    temp.addTransition("S1", { "1","1" }, "S0", "0");
+
+    
+    temp.read();
+
+    
+
+    //ex 3
+
+
+
+
+    /*
+        
+        string lhs = R"((1|00*1)+(1|00*1)(0|10*1)*(0|10*1))";  
+        string rhs = R"(0*1(0|10*1)*)";  
+
+        
+        vector<string> testStrings = {
+           "0","1", "00", "001", "010", "1101", "0001", "101", "111101", "1000101"
+        };
+
+       
+        bool areEqual = compareRegexes(lhs, rhs, testStrings);
+
+        if (areEqual) {
+            cout << "egale." << endl;
+        }
+        else {
+            cout << "nu sunt egale." << endl;
+        }
+
+        */
+        return 0;
+    }
+
+
+   
