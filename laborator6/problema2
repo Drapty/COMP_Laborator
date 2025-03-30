@@ -1,0 +1,229 @@
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+vector<string> uniune(vector<string> temp1,vector<string> temp2 )
+{
+    vector<string> rezultat;
+    for (int i = 0;i < temp1.size();i++)
+    {
+        rezultat.push_back(temp1.at(i));
+    }
+    for (int i = 0;i < temp2.size();i++)
+    {
+        rezultat.push_back(temp2.at(i));
+    }
+
+    return rezultat;
+}
+
+vector<string> concatenare(vector<string> temp1, vector<string> temp2)
+{
+    vector<string> rezultat;
+    vector<string> concat;
+    for (int i = 0;i < temp1.size();i++)
+    {
+       
+
+        for (int j = 0;j < temp2.size();j++)
+        {
+            concat.push_back(temp1.at(i)+temp2.at(j));
+
+
+           // rezultat.push_back(concat.at(j));
+        }
+    }
+
+    return concat;
+}
+
+vector<string> kleene(vector<string> temp)
+{
+    vector<string> rezultat;
+    string kleene = temp.at(0);
+    rezultat.push_back("e");
+    rezultat.push_back(kleene);
+
+    for (int i=0;i<4;i++)
+    {
+        kleene += temp.at(0);
+        rezultat.push_back(kleene);
+    }
+    return rezultat;
+}
+
+vector<string> reverse(vector<string> temp)
+{
+    vector<string> rezultat;
+    string reverse;
+    for (int i=0;i<temp.size();i++)
+    {
+        string right;
+
+        reverse = temp.at(i);
+        for (int j = reverse.size() - 1;j > -1;j--)
+        {
+             // salvare text reverse
+
+            right.push_back(reverse.at(j));
+           
+        }
+
+        rezultat.push_back(right);
+    }
+
+    return rezultat;
+}
+
+vector<string> intersection(vector<string> temp1, vector<string> temp2)
+{
+    vector<string> intersection;
+    intersection.push_back("e");
+
+    for (const string& str : temp2)
+    {
+        for(int i=0;i<temp1.size();i++ )
+        {
+            if (str==temp1.at(i))
+            {
+                intersection.push_back(str);
+            }
+        }
+    }
+
+    return intersection;
+
+}
+
+int main()
+{
+    vector<string> temp1;
+    vector<string> temp2;
+
+   
+
+    temp1 = { "ab","ba" };
+    temp2 = { "a","b" };
+
+    int a=6;
+    
+    while (a!=0)
+    {
+        cin >> a;
+        switch (a)
+        {
+        
+        case 1:
+        {
+            vector<string> rez;
+            rez = uniune(temp1, temp2);
+
+            cout << "L1 U L2={";
+            for (int i = 0;i < rez.size();i++)
+            {
+
+                cout << rez.at(i);
+                if (rez.size() - 1 != i)
+                {
+                    cout << ", ";
+                }
+            }
+
+
+            cout << "}";
+            cout << endl ;
+            break;
+        }
+        case 2:
+        {
+            vector<string> rez;
+            // temp1 = { "a","aa","aaa" };
+           //  temp2 = { "b","bb" };
+            rez = concatenare(temp1, temp2);
+
+            cout << "L1L2={";
+            for (int i = 0;i < rez.size();i++)
+            {
+
+                cout << rez.at(i);
+                if (rez.size() - 1 != i)
+                {
+                    cout << ", ";
+                }
+            }
+            cout << "}";
+
+            cout << endl;
+
+            break;
+        }
+        case 3:
+        {
+            //  temp1 = { "10","01" };
+            vector<string> rez;
+            rez = reverse(temp1);
+
+            cout << "L1^r={";
+            for (int i = 0;i < rez.size();i++)
+            {
+
+                cout << rez.at(i);
+                if (rez.size() - 1 != i)
+                {
+                    cout << ", ";
+                }
+            }
+            cout << "}"<<endl;
+
+            break;
+        }
+        case 4:
+        {
+            //  temp1 = { "a*b" };
+             // temp2 = { "b*a" };
+
+            vector<string> rez;
+            rez = intersection(temp1, temp2);
+
+            cout << "L1 inter L2={";
+            for (int i = 0;i < rez.size();i++)
+            {
+
+                cout << rez.at(i);
+                if (rez.size() - 1 != i)
+                {
+                    cout << ", ";
+                }
+            }
+            cout << "}"<<endl;
+            break;
+        }
+        case 5:
+        {
+            //  temp1 = { "ab" };
+
+
+            vector<string> rez;
+            rez = kleene(temp1);
+
+            cout << "L1*={";
+            for (int i = 0;i < rez.size();i++)
+            {
+
+                cout << rez.at(i);
+                if (rez.size() - 1 != i)
+                {
+                    cout << ", ";
+                }
+            }
+            cout << "}"<<endl;
+            break;
+        }
+
+        }
+    }
+    return 0;
+}
