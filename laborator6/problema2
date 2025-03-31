@@ -98,8 +98,67 @@ vector<string> intersection(vector<string> temp1, vector<string> temp2)
 
 }
 
+
+bool isValidString(const string& str) {
+    int countA = 0, countB = 0;
+    bool foundB = false;
+
+    for (char c : str) {
+        if (c == 'a') {
+            if (foundB) return false;
+            countA++;
+        }
+        else if (c == 'b') {
+            foundB = true;
+            countB++;
+        }
+        else {
+            return false;
+        }
+    }
+
+    return countA == countB;
+}
+
+
+bool PumpingLemma(const string& str) {
+    if (str.length() < 4) return false; 
+
+    
+    for (int i = 1; i < str.length(); i++) {
+        for (int j = i + 1; j < str.length(); j++) {
+            string x = str.substr(0, i);
+            string y = str.substr(i, j - i);
+            string z = str.substr(j);
+
+            
+            string w = x + string(2, y[0]) + z; // Example pumping: y^2
+            if (!isValidString(w)) {
+                cout << "does not corresponde: " << w << endl;
+                return true; 
+            }
+        }
+    }
+
+    return false;
+}
+
+
 int main()
 {
+
+//problema 1
+ string testString = "aabb";
+    if (PumpingLemma(testString)) {
+        cout << "The language is not regular." << endl;
+    }
+    else {
+        cout << "The language is regular." << endl;
+    }
+    
+// problema 2
+
+
     vector<string> temp1;
     vector<string> temp2;
 
